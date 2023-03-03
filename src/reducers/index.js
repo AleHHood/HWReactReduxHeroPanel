@@ -22,8 +22,14 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 heroesLoadingStatus: 'error'
             }
+        case 'HEROES_DELETE':
+            return {
+                ...state,
+                heroes: state.heroes.filter(hero => hero.id !== action.payload)
+            }
         default: return state
     }
+
 }
 
 export default reducer;

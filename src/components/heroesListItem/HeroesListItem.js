@@ -1,5 +1,18 @@
+import { heroesDelete, heroesDeleteError } from '../../actions';
+import { useDispatch, useSelector } from 'react-redux';
+import {useHttp} from '../../hooks/http.hook';
 
-const HeroesListItem = ({name, description, element}) => {
+const HeroesListItem = ({name, description, element, id}) => {
+
+    const dispatch = useDispatch();
+    const {request} = useHttp();
+
+    const deleteElement = () => {
+
+        request(`http://localhost:3001/heroes/${id}`, "DELETE")
+        .then(() => dispatch(heroesDelete(id)))
+        .catch(() => dispatch(heroesDeleteError()))
+    }
 
     let elementClassName;
 
@@ -33,7 +46,7 @@ const HeroesListItem = ({name, description, element}) => {
                 <p className="card-text">{description}</p>
             </div>
             <span className="position-absolute top-0 start-100 translate-middle badge border rounded-pill bg-light">
-                <button type="button" className="btn-close btn-close" aria-label="Close"></button>
+                <button type="button" className="btn-close btn-close" aria-label="Close" onClick={deleteElement}></button>
             </span>
         </li>
     )
