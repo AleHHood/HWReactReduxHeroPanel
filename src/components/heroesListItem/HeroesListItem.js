@@ -1,5 +1,5 @@
 import { heroesDelete, heroesDeleteError } from '../../actions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {useHttp} from '../../hooks/http.hook';
 
 const HeroesListItem = ({name, description, element, id}) => {

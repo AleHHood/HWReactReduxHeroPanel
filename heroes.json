@@ -1,10 +1,10 @@
 {
   "heroes": [
     {
-        "id": 1,
-        "name": "Неизвестный герой",
-        "description": "Скрывающийся в тени",
-        "element": "wind"
+      "id": 1,
+      "name": "Неизвестный герой",
+      "description": "Скрывающийся в тени",
+      "element": "wind"
     },
     {
       "id": 4,
@@ -13,10 +13,10 @@
       "element": "wind"
     },
     {
-        "id": 5,
-        "name": "Неизвестный герой",
-        "description": "Скрывающийся в тени",
-        "element": "wind"
+      "id": 5,
+      "name": "Неизвестный герой",
+      "description": "Скрывающийся в тени",
+      "element": "wind"
     },
     {
       "id": 6,
