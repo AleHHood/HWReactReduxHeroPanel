@@ -13,29 +13,44 @@
       "element": "wind"
     },
     {
-      "id": 5,
-      "name": "Неизвестный герой",
-      "description": "Скрывающийся в тени",
-      "element": "wind"
-    },
-    {
-      "id": 6,
-      "name": "Неизвестный герой",
-      "description": "Скрывающийся в тени",
-      "element": "wind"
-    },
-    {
       "id": 3,
       "name": "Морской герой",
       "description": "Как аквамен, но не из DC",
       "element": "water"
+    },
+    {
+      "id": "e9a380a4-22fb-452e-bcd0-acff02d35a1f",
+      "name": "alehhood",
+      "text": "das",
+      "element": "earth"
+    },
+    {
+      "id": "41904a03-679c-4e89-9523-a5c6c61a9f8e",
+      "name": "alehhood",
+      "text": "das",
+      "element": "fire"
     }
   ],
   "filters": [
-    "all",
-    "fire",
-    "water",
-    "wind",
-    "earth"
+    {
+      "eng": "all",
+      "rus": "Все"
+    },
+    {
+      "eng": "fire",
+      "rus": "Огонь"
+    },
+    {
+      "eng": "water",
+      "rus": "Вода"
+    },
+    {
+      "eng": "wind",
+      "rus": "Ветер"
+    },
+    {
+      "eng": "earth",
+      "rus": "Земля"
+    }
   ]
 }
