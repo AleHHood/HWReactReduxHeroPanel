@@ -20,7 +20,20 @@ import { heroesAdd, heroesAddError } from '../../actions';
 const HeroesAddForm = () => {
 
     const dispatch = useDispatch();
+    const {filters} = useSelector(state => state)
     const {request} = useHttp();
+
+    const getOptions = () =>{
+        return(
+            filters.map(filter => {
+                return(
+                    filter.eng === "all" ?
+                    <option >Я владею элементом...</option> :
+                    <option value={filter.eng}>{filter.rus}</option>
+                )
+            })
+        )
+    }
 
 
     return (
@@ -34,14 +47,14 @@ const HeroesAddForm = () => {
               .max(50, 'Must be 50 characters or less')
               .required('Required'),
             element: Yup.string()
-            .required('Required'),
+                //.matches(/!(Я владею элементом...)/, 'Must be 10 characters or less')
+                .required('Required'),
           })}
             onSubmit={(values) => {
                 const hero = {id: uuidv4(), ...values}
                 request(`http://localhost:3001/heroes/`, "POST", JSON.stringify(hero))
                 .then(() => dispatch(heroesAdd(hero)))
                 .catch(() => dispatch(heroesAddError()))
-                console.log(hero);
                 
             }
                 
@@ -80,11 +93,7 @@ const HeroesAddForm = () => {
                     component="select"
                     className="form-select" 
                 >
-                    <option >Я владею элементом...</option>
-                    <option value="fire">Огонь</option>
-                    <option value="water">Вода</option>
-                    <option value="wind">Ветер</option>
-                    <option value="earth">Земля</option>
+                    {getOptions()}
                 </Field>
                 <ErrorMessage name="element" />
             </div>
@@ -96,44 +105,3 @@ const HeroesAddForm = () => {
     }
 
 export default HeroesAddForm;
-
-/*             <form className="border p-4 shadow-lg rounded">
-            <div className="mb-3">
-                <label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
-                <input 
-                    required
-                    type="text" 
-                    name="name" 
-                    className="form-control" 
-                    id="name" 
-                    placeholder="Как меня зовут?"/>
-            </div>
-
-            <div className="mb-3">
-                <label htmlFor="text" className="form-label fs-4">Описание</label>
-                <textarea
-                    required
-                    name="text" 
-                    className="form-control" 
-                    id="text" 
-                    placeholder="Что я умею?"
-                    style={{"height": '130px'}}/>
-            </div>
-
-            <div className="mb-3">
-                <label htmlFor="element" className="form-label">Выбрать элемент героя</label>
-                <select 
-                    required
-                    className="form-select" 
-                    id="element" 
-                    name="element">
-                    <option >Я владею элементом...</option>
-                    <option value="fire">Огонь</option>
-                    <option value="water">Вода</option>
-                    <option value="wind">Ветер</option>
-                    <option value="earth">Земля</option>
-                </select>
-            </div>
-
-            <button type="submit" className="btn btn-primary" onClick={addHero()}>Создать</button>
-        </form> */
