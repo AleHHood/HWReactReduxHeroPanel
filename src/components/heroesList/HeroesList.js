@@ -1,8 +1,9 @@
 import {useHttp} from '../../hooks/http.hook';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
 
-import { heroesFetching, heroesFetched, heroesFetchingError } from '../../actions';
+import { heroesFetch } from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -12,19 +13,30 @@ import Spinner from '../spinner/Spinner';
 // Удаление идет и с json файла при помощи метода DELETE
 
 const HeroesList = () => {
-    const {heroes, heroesLoadingStatus, filterActive} = useSelector(state => state);
+    const filteredHeroesSelector = createSelector(
+        (state) => state.filters.filterActive,
+        (state) => state.heroes.heroes,
+        (filter, heroes) => {
+            if(filter === "all"){
+                return heroes
+            }else {
+                return heroes.filter(hero => hero.element === filter)
+            }
+        }
+    )
+
+
+
+    const heroes = useSelector(filteredHeroesSelector)
+    const {heroesLoadingStatus} = useSelector(state => state.heroes);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
     useEffect(() => {
-        dispatch(heroesFetching());
-        request("http://localhost:3001/heroes")
-            .then(data => dispatch(heroesFetched(data)))
-            .catch(() => dispatch(heroesFetchingError()))
-
-        // eslint-disable-next-line
+        dispatch(heroesFetch(request));
     }, []);
 
+    
     if (heroesLoadingStatus === "loading") {
         return <Spinner/>;
     } else if (heroesLoadingStatus === "error") {
@@ -32,16 +44,16 @@ const HeroesList = () => {
     }
 
     const renderHeroesList = (arr) => {
+
         if (arr.length === 0) {
             return <h5 className="text-center mt-5">Героев пока нет</h5>
         }
 
-        return arr.map(({id, element, ...props}) => {
-            if(filterActive === "all" || filterActive === element){
-                return(
-                    <HeroesListItem key={id} {...props} id={id} element={element}/>
-                )
-            }           
+        return arr.map(({id, ...props}) => {
+            return(
+                <HeroesListItem key={id} {...props} id={id}/>
+            )
+                      
         })
     }
 

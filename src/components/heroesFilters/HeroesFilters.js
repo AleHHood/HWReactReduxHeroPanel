@@ -8,14 +8,14 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 import {useHttp} from '../../hooks/http.hook';
-import { filtersFetching, filtersFetched, filtersFetchingError, changeActiveFilter } from '../../actions';
+import { filtersFetch, changeActiveFilter } from '../../actions';
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Spinner from '../spinner/Spinner';
 
 const HeroesFilters = () => {
 
-    const {filters, filtersLoadingStatus, filterActive} = useSelector(state => state);
+    const {filters, filtersLoadingStatus, filterActive} = useSelector(state => state.filters);
     const dispatch = useDispatch();
     const {request} = useHttp();
     const classNamesFilters = 
@@ -28,13 +28,18 @@ const HeroesFilters = () => {
         }
 
     useEffect(() => {
+        dispatch(filtersFetch(request));
+        // eslint-disable-next-line
+    }, []);
+
+/*     useEffect(() => {
         dispatch(filtersFetching());
         request("http://localhost:3001/filters")
             .then(data => dispatch(filtersFetched(data)))
             .catch(() => dispatch(filtersFetchingError()))
 
         // eslint-disable-next-line
-    }, []);
+    }, []); */
 
     if (filtersLoadingStatus === "loading") {
         return <Spinner/>;

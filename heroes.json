@@ -7,18 +7,6 @@
       "element": "wind"
     },
     {
-      "id": 4,
-      "name": "Неизвестный герой",
-      "description": "Скрывающийся в тени",
-      "element": "wind"
-    },
-    {
-      "id": 3,
-      "name": "Морской герой",
-      "description": "Как аквамен, но не из DC",
-      "element": "water"
-    },
-    {
       "id": "e9a380a4-22fb-452e-bcd0-acff02d35a1f",
       "name": "alehhood",
       "text": "das",

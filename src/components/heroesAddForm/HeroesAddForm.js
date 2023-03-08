@@ -1,5 +1,4 @@
 import { useHttp } from '../../hooks/http.hook';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from "yup";
@@ -20,7 +19,7 @@ import { heroesAdd, heroesAddError } from '../../actions';
 const HeroesAddForm = () => {
 
     const dispatch = useDispatch();
-    const {filters} = useSelector(state => state)
+    const {filters} = useSelector(state => state.filters)
     const {request} = useHttp();
 
     const getOptions = () =>{
@@ -28,8 +27,8 @@ const HeroesAddForm = () => {
             filters.map(filter => {
                 return(
                     filter.eng === "all" ?
-                    <option >Я владею элементом...</option> :
-                    <option value={filter.eng}>{filter.rus}</option>
+                    <option key={uuidv4()}>Я владею элементом...</option> :
+                    <option value={filter.eng} key={uuidv4()}>{filter.rus}</option>
                 )
             })
         )
